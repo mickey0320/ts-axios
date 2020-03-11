@@ -1,4 +1,5 @@
 import axios from '../../src/index'
+import { debug } from 'util'
 
 axios.interceptors.request.use(config => {
   config.headers.test += '1'
@@ -34,6 +35,6 @@ axios({
   headers: {
     test: ''
   }
-}).then((res) => {
+}).then(res => {
   console.log(res.data)
 })

@@ -4,7 +4,7 @@ import { extend } from './helpers/util'
 
 function createInstance(): AxiosInstance {
   const axios = new Axios()
-  const instance = axios.request
+  const instance = axios.request.bind(axios)
   extend(instance, axios)
 
   return instance as AxiosInstance
