@@ -7,7 +7,6 @@ import {
 } from '../types'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from './InterceptorManager'
-import defaults from '../defaults'
 import mergeConfig from './mergeConfig'
 
 interface Interceptors {
@@ -23,8 +22,8 @@ interface PromiseChain<T = any> {
 export default class Axios {
   public defaults: AxiosRequestConfig
   private interceptors: Interceptors
-  constructor() {
-    this.defaults = defaults
+  constructor(defaultConfig: AxiosRequestConfig) {
+    this.defaults = defaultConfig
     this.interceptors = {
       request: new InterceptorManager<AxiosRequestConfig>(),
       response: new InterceptorManager<AxiosResponse>()
