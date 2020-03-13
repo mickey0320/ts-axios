@@ -4,7 +4,15 @@ import createError from '../helpers/error'
 
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { url, method = 'get', data, headers, responseType, timeout } = config
+    const {
+      url,
+      method = 'get',
+      data,
+      headers,
+      responseType,
+      timeout,
+      cancelToken
+    } = config
     const xhr = new XMLHttpRequest()
 
     if (responseType) {
@@ -19,6 +27,13 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     Object.keys(headers).forEach(headerName => {
       xhr.setRequestHeader(headerName, headers[headerName])
     })
+
+    if (cancelToken) {
+      cancelToken.promise.then(cancel => {
+        xhr.abort()
+        reject(cancel)
+      })
+    }
     xhr.send(data)
 
     xhr.onerror = function() {

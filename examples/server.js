@@ -8,10 +8,12 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const WebpackConfig = require('./webpack.config')
 const path = require('path')
+const cors = require('cors')
 
 require('./server2')
 
 const app = express()
+app.use(cors())
 const compiler = webpack(WebpackConfig)
 
 app.use(webpackDevMiddleware(compiler, {
